@@ -23,30 +23,11 @@ movie(100, 10, 0.95) should return 24
 */
 
 const movie = (card, ticket, perc) => {
-    let cost = card;
-    let normalPrice;
-    let cardPrice;
-    let current = ticket;
-    let proceed = true;
-    let totalTickets = 0;
-    while(proceed === true) {
-        current = current * perc;
-        cost += current;
-        totalTickets++;
-        console.log('here is totalTickets: ' + totalTickets);
-        normalPrice = ticket * totalTickets;
-        console.log('here is normalPrice: ' + normalPrice);
-        cardPrice = cost / totalTickets;
-        console.log('here is cardPrice: ' + cardPrice);
-        console.log('here is cardPrice with ceil: ' + Math.ceil(cardPrice));
-        if(Math.ceil(cardPrice) < normalPrice) {
-            proceed = false;
-        }
+    let cnt = 0;
+    while (ticket * cnt <= Math.ceil(card)) {
+      cnt++;
+      card += ticket * perc ** cnt;
     }
-    if(totalTickets % 2 !== 0) {
-      return totalTickets * 6 + 1;
-    } else {
-      return totalTickets * 6;
-    }
-
+    return cnt;
+  }
 }
