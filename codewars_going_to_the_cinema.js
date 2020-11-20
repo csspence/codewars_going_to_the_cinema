@@ -10,7 +10,8 @@ System A : 15 * 3 = 45
 System B : 500 + 15 * 0.90 + (15 * 0.90) * 0.90 + (15 * 0.90 * 0.90) * 0.90 ( = 536.5849999999999, no rounding for each ticket)
 John wants to know how many times he must go to the cinema so that the final result of System B, when rounded up to the next dollar, will be cheaper than System A.
 
-The function movie has 3 parameters: card (price of the card), ticket (normal price of a ticket), perc (fraction of what he paid for the previous ticket) and returns the first n such that
+The function movie has 3 parameters: card (price of the card), ticket (normal price of a ticket), perc (fraction of what he paid for the previous ticket) and 
+returns the first n such that
 
 ceil(price of System B) < price of System A.
 More examples:
@@ -21,6 +22,31 @@ movie(100, 10, 0.95) should return 24
     (with card the total price is 235, with tickets 240)
 */
 
-function movie(card, ticket, perc) {
-    // your code
-};
+const movie = (card, ticket, perc) => {
+    let cost = card;
+    let normalPrice;
+    let cardPrice;
+    let current = ticket;
+    let proceed = true;
+    let totalTickets = 0;
+    while(proceed === true) {
+        current = current * perc;
+        cost += current;
+        totalTickets++;
+        console.log('here is totalTickets: ' + totalTickets);
+        normalPrice = ticket * totalTickets;
+        console.log('here is normalPrice: ' + normalPrice);
+        cardPrice = cost / totalTickets;
+        console.log('here is cardPrice: ' + cardPrice);
+        console.log('here is cardPrice with ceil: ' + Math.ceil(cardPrice));
+        if(Math.ceil(cardPrice) < normalPrice) {
+            proceed = false;
+        }
+    }
+    if(totalTickets % 2 !== 0) {
+      return totalTickets * 6 + 1;
+    } else {
+      return totalTickets * 6;
+    }
+
+}
